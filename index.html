@@ -3,236 +3,381 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[Waiting for Input - Your Name] | Portfolio</title>
+    <title>Hongyang Fei | Portfolio</title>
     <style>
-        /* Base Theme & Typography */
+        /* =========================================
+           全局样式与 CSS 变量定义
+           在这里可以修改网站的主题色和背景色
+           ========================================= */
         :root {
-            --bg-color: #0f172a; /* Deep slate background */
-            --card-bg: #1e293b;  /* Lighter slate for cards */
-            --text-main: #f8fafc; /* Off-white text for readability */
-            --text-muted: #94a3b8; /* Gray text for secondary info */
-            --accent: #38bdf8; /* Bright blue for highlights */
-            --accent-hover: #0284c7;
+            --bg-color: #121212; /* 网页主背景色：深灰/黑 */
+            --nav-bg: rgba(18, 18, 18, 0.85); /* 导航栏背景：半透明 */
+            --text-main: #f0f0f0; /* 主要文字颜色：亮灰/白 */
+            --text-muted: #a0a0a0; /* 次要文字颜色：暗灰 */
+            --accent-color: #00ffcc; /* 强调色/交互色：青色荧光 (可以改成你喜欢的颜色) */
+            --card-bg: #1e1e1e; /* 卡片背景色 */
+        }
+
+        /* 隐藏系统默认的光标，使用我们自定义的光标 */
+        * {
+            cursor: none !important;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
-            line-height: 1.6;
             margin: 0;
             padding: 0;
+            overflow-x: hidden; /* 防止横向滚动条 */
+            line-height: 1.6;
         }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 60px 20px;
-        }
-
-        /* Header Section */
-        header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .avatar {
-            width: 130px;
-            height: 130px;
+        /* =========================================
+           趣味交互：自定义鼠标光标与跟随光晕
+           ========================================= */
+        .custom-cursor {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-color);
             border-radius: 50%;
-            border: 3px solid var(--accent);
-            object-fit: cover;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.2);
+            pointer-events: none; /* 确保光标不会阻挡点击事件 */
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            transition: width 0.2s, height 0.2s;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            margin: 0 0 10px 0;
-            letter-spacing: -0.5px;
+        .cursor-trail {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--accent-color);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9998;
+            transition: 0.1s ease-out; /* 光晕跟随的延迟感 */
+            opacity: 0.5;
         }
 
-        .subtitle {
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            margin-bottom: 30px;
+        /* 鼠标点击时的波纹动画 */
+        .click-ripple {
+            position: fixed;
+            border-radius: 50%;
+            border: 2px solid var(--accent-color);
+            pointer-events: none;
+            animation: rippleEffect 0.6s linear forwards;
+            z-index: 9997;
         }
 
-        .social-links a {
+        @keyframes rippleEffect {
+            0% { width: 0; height: 0; opacity: 1; }
+            100% { width: 100px; height: 100px; opacity: 0; }
+        }
+
+        /* =========================================
+           顶部导航栏样式
+           ========================================= */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(10px); /* 毛玻璃效果 */
+            z-index: 1000;
+            padding: 15px 0;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav button {
+            background: none;
+            border: none;
             color: var(--text-main);
-            text-decoration: none;
-            margin: 0 8px;
-            padding: 8px 20px;
-            background: var(--card-bg);
-            border-radius: 30px;
-            border: 1px solid #334155;
-            font-size: 0.9rem;
+            font-size: 1.1rem;
+            margin: 0 15px;
+            padding: 8px 16px;
+            font-weight: 600;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        /* 导航按钮悬停时的下划线动画 */
+        nav button::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--accent-color);
             transition: all 0.3s ease;
-            display: inline-block;
+            transform: translateX(-50%);
         }
 
-        .social-links a:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            transform: translateY(-2px);
+        nav button:hover {
+            color: var(--accent-color);
         }
 
-        /* Main Content Sections */
-        .section {
-            margin-bottom: 50px;
+        nav button:hover::after, nav button.active::after {
+            width: 100%;
         }
 
-        h2 {
+        nav button.active {
+            color: var(--accent-color);
+        }
+
+        /* =========================================
+           主要内容区域与页面切换逻辑
+           ========================================= */
+        main {
+            padding-top: 100px; /* 留出导航栏的空间 */
+            max-width: 900px;
+            margin: 0 auto;
+            min-height: 100vh;
+        }
+
+        /* 所有的 section 默认隐藏，只有带 active 类的才会显示 */
+        section {
+            display: none;
+            animation: fadeIn 0.5s ease; /* 页面切换时的淡入动画 */
+            padding: 20px;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* =========================================
+           卡片与排版样式 (用于项目、爱好等)
+           ========================================= */
+        h1, h2 {
             color: var(--text-main);
-            font-size: 1.5rem;
-            border-bottom: 2px solid #334155;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
+            font-weight: 700;
         }
 
-        h2::before {
-            content: "/>";
-            color: var(--accent);
-            margin-right: 10px;
-            font-family: monospace;
+        h1 span {
+            color: var(--accent-color); /* 名字高亮 */
         }
 
-        /* Cards for Education & Projects */
         .card {
-            background: var(--card-bg);
-            padding: 25px;
+            background-color: var(--card-bg);
             border-radius: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #334155;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
+        /* 卡片悬停时的“小确幸”：轻微上浮和发光 */
         .card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            border-color: #475569;
-        }
-
-        .card h3 {
-            margin: 0 0 10px 0;
-            color: var(--text-main);
-            font-size: 1.25rem;
-        }
-
-        .card-meta {
-            color: var(--accent);
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-            font-weight: 500;
-        }
-
-        .card p {
-            color: var(--text-muted);
-            margin: 0 0 15px 0;
-        }
-
-        /* Skill Tags */
-        .tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 255, 204, 0.1);
+            border-color: rgba(0, 255, 204, 0.3);
         }
 
         .tag {
-            background: #0f172a;
-            color: var(--text-muted);
-            padding: 6px 12px;
-            border-radius: 6px;
+            display: inline-block;
+            background-color: rgba(0, 255, 204, 0.1);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
             font-size: 0.85rem;
-            border: 1px solid #334155;
+            margin-right: 8px;
+            margin-bottom: 8px;
         }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-top: 80px;
-            border-top: 1px solid #334155;
-            padding-top: 20px;
+        
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        
-        <header>
-            <img src="https://via.placeholder.com/150" alt="Profile Picture" class="avatar">
-            <h1>[Waiting for Input - Your Full Name]</h1>
-            <div class="subtitle">[Waiting for Input - Your Target Role or Academic Goal, e.g., Aspiring Software Engineer | MS CS Applicant]</div>
-            
-            <div class="social-links">
-                <a href="mailto:[Waiting for Input - Your Email]">[Waiting for Input - Email]</a>
-                <a href="[Waiting for Input - Your LinkedIn URL]" target="_blank">[Waiting for Input - LinkedIn]</a>
-                <a href="[Waiting for Input - Your GitHub URL]" target="_blank">[Waiting for Input - GitHub]</a>
-            </div>
-        </header>
+    <div class="custom-cursor" id="cursor"></div>
+    <div class="cursor-trail" id="cursor-trail"></div>
 
-        <div class="section">
-            <h2>About Me</h2>
-            <p>[Waiting for Input - Write a 2-3 sentence introduction. Briefly mention your current status, your main areas of interest, and what you are looking for (e.g., seeking a 2026 internship, applying for graduate studies). Keep it concise and impactful.]</p>
-        </div>
+    <nav>
+        <button class="active" onclick="switchPage('home', this)">Home</button>
+        <button onclick="switchPage('tech', this)">Tech & Research</button>
+        <button onclick="switchPage('hobbies', this)">Hobbies</button>
+        <button onclick="switchPage('musings', this)">Musings</button>
+    </nav>
 
-        <div class="section">
-            <h2>Education</h2>
+    <main>
+        <section id="home" class="active">
+            <h1>Hello, I'm <span>Hongyang Fei</span> 👋</h1>
+            <p style="font-size: 1.2rem; color: var(--text-muted);">
+                A 21-year-old undergraduate student seeking exciting new research directions.
+            </p>
             
             <div class="card">
-                <h3>[Waiting for Input - Your Degree and Major]</h3>
-                <div class="card-meta">[Waiting for Input - University Name] | [Waiting for Input - Start Year - End Year]</div>
-                <p>[Waiting for Input - Optional: Mention your GPA, key coursework, scholarships, or academic honors here.]</p>
+                <h2>About Me</h2>
+                <p>
+                    I am highly motivated to explore emerging fields with strong future potential. 
+                    I currently have one year to prepare for my next big academic step, and my goal is to pursue a fully-funded Master's or PhD program abroad. 
+                    I am actively seeking new, forward-looking research directions to dive into.
+                </p>
+                <p>
+                    When I'm not studying or researching, I'm a left-handed table tennis player, a basketball enthusiast, and a huge fan of American professional sports.
+                </p>
             </div>
-        </div>
 
-        <div class="section">
-            <h2>Technical Skills</h2>
             <div class="card">
-                <div class="tags">
-                    <span class="tag">[Waiting for Input - Skill 1, e.g., Python]</span>
-                    <span class="tag">[Waiting for Input - Skill 2, e.g., C++]</span>
-                    <span class="tag">[Waiting for Input - Skill 3, e.g., PyTorch]</span>
-                    <span class="tag">[Waiting for Input - Skill 4, e.g., Git]</span>
-                    <span class="tag">[Waiting for Input - Skill 5, e.g., Linux]</span>
-                </div>
+                <h2>Quick Links</h2>
+                <p>📧 Email: <a href="mailto:waiting@input.com">[Waiting for Input]</a></p>
+                <p>🐙 GitHub: <a href="#">[Waiting for Input]</a></p>
             </div>
-        </div>
+        </section>
 
-        <div class="section">
-            <h2>Experience & Projects</h2>
+        <section id="tech">
+            <h1>Tech & Research</h1>
             
             <div class="card">
-                <h3>[Waiting for Input - Project or Paper Title]</h3>
-                <div class="card-meta">[Waiting for Input - Role / Status, e.g., Core Developer / Paper Under Review]</div>
-                <p>[Waiting for Input - Describe what you did, the problem you solved, and the impact of your work. Focus on your specific contributions.]</p>
-                <div class="tags">
-                    <span class="tag">[Waiting for Input - Tech/Tool Used]</span>
-                    <span class="tag">[Waiting for Input - Tech/Tool Used]</span>
-                </div>
+                <h2>Academic Research</h2>
+                <h3>MKDRec</h3>
+                <p style="color: var(--accent-color); font-size: 0.9rem;">Status: Under Review (Journal of Big Data) | Submitted March 2026</p>
+                <p>
+                    A Multi-source Knowledge Distillation Framework. Explored complex model architectures including the use of Informer in teacher models.
+                    <em>*Currently seeking new research domains beyond this project.*</em>
+                </p>
             </div>
 
             <div class="card">
-                <h3>[Waiting for Input - Another Project Title]</h3>
-                <div class="card-meta">[Waiting for Input - Context, e.g., Personal Project / Coursework]</div>
-                <p>[Waiting for Input - Describe the project architecture, features, and outcomes.]</p>
+                <h2>Technical Skills & Interests</h2>
                 <div class="tags">
-                    <span class="tag">[Waiting for Input - Tech/Tool Used]</span>
-                    <span class="tag">[Waiting for Input - Tech/Tool Used]</span>
+                    <span class="tag">PC Building & Hardware</span>
+                    <span class="tag">Home Assistant (HA)</span>
+                    <span class="tag">Networking (VPS/Nodes)</span>
+                    <span class="tag">[Waiting for Input - Skill 4]</span>
+                    <span class="tag">[Waiting for Input - Skill 5]</span>
                 </div>
+                <p>
+                    Outside of academics, I enjoy tinkering with hardware, building custom PCs, and exploring smart home ecosystems (Zigbee, Bluetooth Mesh, etc.).
+                </p>
             </div>
-        </div>
+        </section>
 
-        <footer>
-            <p>© 2026 [Waiting for Input - Your Name]. All rights reserved.</p>
-        </footer>
+        <section id="hobbies">
+            <h1>Hobbies & Interests</h1>
+            
+            <div class="card">
+                <h2>Sports 🏀🏓</h2>
+                <p><strong>Playing:</strong> I play basketball and I am a left-handed table tennis player.</p>
+                <p><strong>Watching:</strong> Big fan of American professional sports, actively following the MLB (Shohei Ohtani, Aaron Judge) and the NFL.</p>
+            </div>
 
-    </div>
+            <div class="card">
+                <h2>Gaming 🎮</h2>
+                <p>Avid Counter-Strike (CS) player. Always interested in optimizing hardware for the best competitive experience.</p>
+            </div>
 
+            <div class="card">
+                <h2>Language Learning 🌍</h2>
+                <p>Continuously improving my English speaking and comprehension skills in preparation for studying abroad.</p>
+            </div>
+        </section>
+
+        <section id="musings">
+            <h1>Daily Musings</h1>
+            <p style="color: var(--text-muted);">Thoughts, ideas, and random sparks of inspiration.</p>
+            
+            <div class="card">
+                <h2>[Waiting for Input - Date]</h2>
+                <p>[Waiting for Input - Write your thoughts here. Maybe about your journey finding a new research direction, a great sports game you watched, or a new tech idea.]</p>
+            </div>
+
+            <div class="card">
+                <h2>The AI "Digital Clone" Idea</h2>
+                <p>Been exploring the entrepreneurial potential of creating AI-driven digital clones of historical figures. Fascinating intersection of tech and history.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // 1. 页面切换功能
+        function switchPage(pageId, clickedButton) {
+            // 隐藏所有 section
+            const sections = document.querySelectorAll('main section');
+            sections.forEach(sec => sec.classList.remove('active'));
+
+            // 移除所有按钮的 active 状态
+            const buttons = document.querySelectorAll('nav button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // 显示目标 section 并给点击的按钮加上 active 状态
+            document.getElementById(pageId).classList.add('active');
+            clickedButton.classList.add('active');
+            
+            // 切换页面时让页面滚动回顶部
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 2. 自定义鼠标光标与光晕逻辑
+        const cursor = document.getElementById('cursor');
+        const cursorTrail = document.getElementById('cursor-trail');
+
+        // 监听鼠标移动事件
+        document.addEventListener('mousemove', (e) => {
+            // 中心点跟随鼠标
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            // 光晕带有延迟的跟随
+            setTimeout(() => {
+                cursorTrail.style.left = e.clientX + 'px';
+                cursorTrail.style.top = e.clientY + 'px';
+            }, 50); // 50毫秒延迟产生拖拽感
+        });
+
+        // 当鼠标悬停在可点击元素上时，放大光标
+        const interactiveElements = document.querySelectorAll('button, a, .card');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.width = '15px';
+                cursor.style.height = '15px';
+                cursor.style.backgroundColor = 'transparent';
+                cursor.style.border = '2px solid var(--accent-color)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.width = '8px';
+                cursor.style.height = '8px';
+                cursor.style.backgroundColor = 'var(--accent-color)';
+                cursor.style.border = 'none';
+            });
+        });
+
+        // 3. 鼠标点击波纹特效 ("小确幸")
+        document.addEventListener('click', (e) => {
+            // 创建一个 div 元素作为波纹
+            const ripple = document.createElement('div');
+            ripple.className = 'click-ripple';
+            
+            // 将波纹定位到鼠标点击的位置
+            ripple.style.left = (e.clientX - 50) + 'px'; // 减去 50 是为了让波纹中心对准鼠标 (最终大小100px的一半)
+            ripple.style.top = (e.clientY - 50) + 'px';
+            
+            // 添加到页面中
+            document.body.appendChild(ripple);
+
+            // 动画结束后 (0.6秒)，将这个元素从 DOM 中移除，保持页面干净
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+    </script>
 </body>
 </html>
