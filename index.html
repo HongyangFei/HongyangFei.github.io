@@ -1,67 +1,237 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Hongyang Fei</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Waiting for Input - Your Name] | Portfolio</title>
     <style>
+        /* Base Theme & Typography */
+        :root {
+            --bg-color: #0f172a; /* Deep slate background */
+            --card-bg: #1e293b;  /* Lighter slate for cards */
+            --text-main: #f8fafc; /* Off-white text for readability */
+            --text-muted: #94a3b8; /* Gray text for secondary info */
+            --accent: #38bdf8; /* Bright blue for highlights */
+            --accent-hover: #0284c7;
+        }
+
         body {
-            font-family: 'Segoe UI', sans-serif;
-            max-width: 800px; /* 控制页面的最大宽度，阅读体验更好 */
-            margin: 0 auto;   /* 让页面整体居中 */
-            padding: 40px 20px;
-            color: #333;
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             line-height: 1.6;
+            margin: 0;
+            padding: 0;
         }
-        /* 我定义了一个叫 module 的类，相当于划分房间的标准 */
-        .module {
-            margin-bottom: 40px;
-            padding: 20px;
-            background-color: #f9f9f9;
-            border-radius: 8px; /* 圆角看起来更现代 */
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px;
         }
+
+        /* Header Section */
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .avatar {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 3px solid var(--accent);
+            object-fit: cover;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.2);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0 0 10px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .social-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin: 0 8px;
+            padding: 8px 20px;
+            background: var(--card-bg);
+            border-radius: 30px;
+            border: 1px solid #334155;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .social-links a:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content Sections */
+        .section {
+            margin-bottom: 50px;
+        }
+
         h2 {
-            color: #2c3e50;
-            border-bottom: 2px solid #007bff; /* 标题下面加一条蓝线 */
+            color: var(--text-main);
+            font-size: 1.5rem;
+            border-bottom: 2px solid #334155;
             padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        h2::before {
+            content: "/>";
+            color: var(--accent);
+            margin-right: 10px;
+            font-family: monospace;
+        }
+
+        /* Cards for Education & Projects */
+        .card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #334155;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border-color: #475569;
+        }
+
+        .card h3 {
+            margin: 0 0 10px 0;
+            color: var(--text-main);
+            font-size: 1.25rem;
+        }
+
+        .card-meta {
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            margin: 0 0 15px 0;
+        }
+
+        /* Skill Tags */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            background: #0f172a;
+            color: var(--text-muted);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            border: 1px solid #334155;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 80px;
+            border-top: 1px solid #334155;
+            padding-top: 20px;
         }
     </style>
 </head>
 <body>
 
-    <div class="module" id="about">
-        <h2>自我介绍</h2>
-        <p>你好！我是 Hongyang Fei。我目前有一年的时间可以筹备，正在寻找一个未来前景广阔的新研究方向...</p>
-    </div>
+    <div class="container">
+        
+        <header>
+            <img src="https://via.placeholder.com/150" alt="Profile Picture" class="avatar">
+            <h1>[Waiting for Input - Your Full Name]</h1>
+            <div class="subtitle">[Waiting for Input - Your Target Role or Academic Goal, e.g., Aspiring Software Engineer | MS CS Applicant]</div>
+            
+            <div class="social-links">
+                <a href="mailto:[Waiting for Input - Your Email]">[Waiting for Input - Email]</a>
+                <a href="[Waiting for Input - Your LinkedIn URL]" target="_blank">[Waiting for Input - LinkedIn]</a>
+                <a href="[Waiting for Input - Your GitHub URL]" target="_blank">[Waiting for Input - GitHub]</a>
+            </div>
+        </header>
 
-    <div class="module" id="education">
-        <h2>求学经历</h2>
-        <ul>
-            <li>南京信息工程大学 - 大三在读</li>
-            <li>已获得研究生推免资格（保研）</li>
-        </ul>
-    </div>
+        <div class="section">
+            <h2>About Me</h2>
+            <p>[Waiting for Input - Write a 2-3 sentence introduction. Briefly mention your current status, your main areas of interest, and what you are looking for (e.g., seeking a 2026 internship, applying for graduate studies). Keep it concise and impactful.]</p>
+        </div>
 
-    <div class="module" id="projects">
-        <h2>项目经历</h2>
-        <ul>
-            <li><strong>MKDRec</strong>: 一篇在投文章，探讨了基于 Informer 架构的...</li>
-            <li><strong>企业实战</strong>: 拼多多服务端开发/大模型算法实习申请与准备...</li>
-        </ul>
-    </div>
+        <div class="section">
+            <h2>Education</h2>
+            
+            <div class="card">
+                <h3>[Waiting for Input - Your Degree and Major]</h3>
+                <div class="card-meta">[Waiting for Input - University Name] | [Waiting for Input - Start Year - End Year]</div>
+                <p>[Waiting for Input - Optional: Mention your GPA, key coursework, scholarships, or academic honors here.]</p>
+            </div>
+        </div>
 
-    <div class="module" id="activities">
-        <h2>生活与活动</h2>
-        <p>在研究之外，我也非常热爱生活：</p>
-        <ul>
-            <li>🏓 <strong>乒乓球</strong>: 作为一名左手将，我经常参与...</li>
-            <li>🎻 <strong>小提琴</strong>: 获得了...证书。</li>
-            <li>💻 <strong>日常折腾</strong>: 喜欢研究 PC 硬件组装，或是折腾 Home Assistant 智能家居服务器。</li>
-        </ul>
-    </div>
+        <div class="section">
+            <h2>Technical Skills</h2>
+            <div class="card">
+                <div class="tags">
+                    <span class="tag">[Waiting for Input - Skill 1, e.g., Python]</span>
+                    <span class="tag">[Waiting for Input - Skill 2, e.g., C++]</span>
+                    <span class="tag">[Waiting for Input - Skill 3, e.g., PyTorch]</span>
+                    <span class="tag">[Waiting for Input - Skill 4, e.g., Git]</span>
+                    <span class="tag">[Waiting for Input - Skill 5, e.g., Linux]</span>
+                </div>
+            </div>
+        </div>
 
-    <div class="module" id="future">
-        <h2>预留模块</h2>
-        <p>（这里留着你以后加新的技术探索，或者写点对美国职棒大联盟 MLB 规则的分析等）</p>
+        <div class="section">
+            <h2>Experience & Projects</h2>
+            
+            <div class="card">
+                <h3>[Waiting for Input - Project or Paper Title]</h3>
+                <div class="card-meta">[Waiting for Input - Role / Status, e.g., Core Developer / Paper Under Review]</div>
+                <p>[Waiting for Input - Describe what you did, the problem you solved, and the impact of your work. Focus on your specific contributions.]</p>
+                <div class="tags">
+                    <span class="tag">[Waiting for Input - Tech/Tool Used]</span>
+                    <span class="tag">[Waiting for Input - Tech/Tool Used]</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>[Waiting for Input - Another Project Title]</h3>
+                <div class="card-meta">[Waiting for Input - Context, e.g., Personal Project / Coursework]</div>
+                <p>[Waiting for Input - Describe the project architecture, features, and outcomes.]</p>
+                <div class="tags">
+                    <span class="tag">[Waiting for Input - Tech/Tool Used]</span>
+                    <span class="tag">[Waiting for Input - Tech/Tool Used]</span>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2026 [Waiting for Input - Your Name]. All rights reserved.</p>
+        </footer>
+
     </div>
 
 </body>
