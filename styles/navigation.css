@@ -32,6 +32,10 @@
     align-items: center;
 }
 
+.nav-menu li {
+    padding: 8px 0;
+}
+
 .nav-menu a {
     color: var(--text-main);
     text-decoration: none;
@@ -40,7 +44,7 @@
     text-transform: uppercase;
     transition: all 0.3s ease;
     position: relative;
-    padding: 10px 12px 5px 12px;
+    padding: 12px 8px 10px 8px;#上边距，右边距，下边距，左边距
     display: block;
 }
 

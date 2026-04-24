@@ -115,20 +115,21 @@
 
 .panel-toggle-btn {
     position: absolute;
-    top: 40px;
+    top: 120px;
     left: calc(100% + 20px);
     z-index: 1000;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    color: var(--text-main);
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: rgba(0, 242, 254, 0.08);
+    border: 1px solid rgba(0, 242, 254, 0.3);
+    color: var(--accent-cyan);
     display: flex; justify-content: center; align-items: center;
-    font-size: 1.2rem;
+    font-size: 1rem;
     backdrop-filter: blur(10px);
     transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
 }
 
 .panel-toggle-btn:hover {
@@ -161,7 +162,6 @@
     object-fit: cover; margin-bottom: 25px;
     border: 3px solid transparent;
     background: linear-gradient(var(--bg-dark), var(--bg-dark)) padding-box, var(--gradient) border-box;
-    animation: floatAvatar 6s ease-in-out infinite;
 }
 
 .name-title { font-size: 2.2rem; font-weight: 700; color: var(--text-title); margin-bottom: 5px; }

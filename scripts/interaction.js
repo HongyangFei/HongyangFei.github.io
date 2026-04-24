@@ -168,8 +168,8 @@ animateTrailParticles();
 
 document.querySelectorAll('button, a, .glass-card, .star-node, .showcase-card').forEach(el => {
     el.addEventListener('mouseenter', () => {
-        trail.style.width = '55px';
-        trail.style.height = '55px';
+        trail.style.width = '43px';
+        trail.style.height = '43px';
         trail.style.background = 'rgba(0, 242, 254, 0.1)';
         trail.style.borderColor = 'rgba(0, 242, 254, 0.8)';
     });
