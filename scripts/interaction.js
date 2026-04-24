@@ -188,9 +188,17 @@ document.querySelectorAll('button, a, .glass-card, .star-node, .showcase-card').
         setTimeout(() => ripple.remove(), 1200);
     });
 } else {
-    // 手机版：隐藏鼠标特效元素
+    // 手机版：隐藏鼠标特效元素并恢复系统鼠标
     const cursor = document.getElementById('cursor');
     const trail = document.getElementById('cursor-trail');
-    if (cursor) cursor.style.display = 'none';
-    if (trail) trail.style.display = 'none';
+    if (cursor) {
+        cursor.style.display = 'none';
+        cursor.style.pointerEvents = 'none';
+    }
+    if (trail) {
+        trail.style.display = 'none';
+        trail.style.pointerEvents = 'none';
+    }
+    // 移除 cursor: none 规则，恢复系统鼠标
+    document.body.style.cursor = 'auto';
 }

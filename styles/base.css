@@ -30,8 +30,16 @@
     margin: 0; padding: 0; box-sizing: border-box;
 }
 
-/* 只有在宽屏电脑端，才隐藏系统自带的鼠标 */
-body.device-desktop * {
+/* 隐藏系统自带的鼠标（在加载自定义鼠标的设备上） */
+body:not(.device-small):not(.device-very-small) * {
+    cursor: none !important;
+}
+
+/* 确保所有元素都继承这个规则 */
+body:not(.device-small):not(.device-very-small) button,
+body:not(.device-small):not(.device-very-small) a,
+body:not(.device-small):not(.device-very-small) input,
+body:not(.device-small):not(.device-very-small) textarea {
     cursor: none !important;
 }
 
@@ -93,4 +101,27 @@ body {
 @keyframes ripleAnim {
     0% { width: 10px; height: 10px; opacity: 1; border-width: 2px; }
     100% { width: 100px; height: 100px; opacity: 0; border-width: 0px; }
+}
+
+/* 移动端直接隐藏欢迎页面 */
+body.device-small #unveil-content,
+body.device-very-small #unveil-content {
+    display: none !important;
+}
+
+body.device-small #veil-canvas,
+body.device-very-small #veil-canvas {
+    display: none !important;
+}
+
+/* 移动端直接显示主页面 */
+body.device-small #main-wrapper,
+body.device-very-small #main-wrapper {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+}
+
+body.device-small .top-nav,
+body.device-very-small .top-nav {
+    top: 0 !important;
 }

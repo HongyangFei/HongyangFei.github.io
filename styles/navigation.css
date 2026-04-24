@@ -128,6 +128,17 @@
     width: 100%;
 }
 
+/* 移动端禁用 hover 效果 */
+@media (max-width: 768px) {
+    .nav-menu a:hover {
+        color: var(--text-main);
+    }
+
+    .nav-menu a:hover::after {
+        width: 0;
+    }
+}
+
 .nav-menu a.active {
     color: var(--accent-cyan);
 }
