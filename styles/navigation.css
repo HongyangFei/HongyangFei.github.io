@@ -270,10 +270,9 @@
     /* 4. 移动端显示滑动提示 */
     .nav-scroll-hint {
         display: block;
-        position: absolute;
-        right: 15px;
-        top: 50%;
-        transform: translateY(-50%);
+        position: fixed;
+        left: 10px;
+        top: 15px;
         font-size: 0.7rem;
         color: rgba(0, 242, 254, 0.6);
         white-space: nowrap;

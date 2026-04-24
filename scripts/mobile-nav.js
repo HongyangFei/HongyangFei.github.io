@@ -1,42 +1,278 @@
 /**
  * ================================
- * mobile-nav.js - 移动端导航优化
+ * navigation.css - 右上角导航菜单样式
  * ================================
- * 作用：处理移动端导航栏的滑动和点击交互
+ * 作用：控制右上角导航菜单的样式和动画
+ * 位置：index.html 中的 <nav class="top-nav">
  * 功能：
- *   1. 隐藏滑动提示（用户滑动后）
- *   2. 确保点击在滑动时也能工作
- * ================================
+ *   1. .top-nav - 导航容器（固定在右上角，top: 30px）
+ *   2. .nav-menu - 菜单列表
+ *   3. 横线动画 - 从左/右滑入，离开时滑出
+ *   4. active状态 - 当前页面的标签横线始终显示
  */
 
-const navScrollHint = document.querySelector('.nav-scroll-hint');
+/* =========================================
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
 
-// 移动端处理滑动和点击
-if (deviceDetector && deviceDetector.shouldHideLeftPanel()) {
-    const topNav = document.querySelector('.top-nav');
-    let hasScrolled = false;
+    position: relative;
+    padding: 12px 10px 10px 10px;
+    /* 上边距，右边距，下边距，左边距 */
+    display: block;
+}
 
-    if (topNav && navScrollHint) {
-        // 监听滑动事件
-        topNav.addEventListener('scroll', () => {
-            if (!hasScrolled) {
-                hasScrolled = true;
-                navScrollHint.style.opacity = '0';
-                navScrollHint.style.pointerEvents = 'none';
-                navScrollHint.style.transition = 'opacity 0.3s ease';
-            }
-        }, { passive: true });
+.nav-menu a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--accent-cyan);
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-        // 点击链接时隐藏提示
-        document.querySelectorAll('.nav-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                if (!hasScrolled) {
-                    hasScrolled = true;
-                navScrollHint.style.opacity = '0';
-                    navScrollHint.style.pointerEvents = 'none';
-                }
-            });
-        });
+.nav-menu a.from-left::after {
+    animation: slideFromLeft 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.nav-menu a.from-right::after {
+    animation: slideFromRight 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.nav-menu a.to-left::after {
+    animation: slideToLeft 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.nav-menu a.to-right::after {
+    animation: slideToRight 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes slideFromLeft {
+    from {
+        left: 0;
+        width: 0;
+    }
+    to {
+        left: 0;
+        width: 100%;
     }
 }
-</antml>
+
+@keyframes slideFromRight {
+    from {
+        left: 100%;
+        width: 0;
+    }
+    to {
+        left: 0;
+        width: 100%;
+    }
+}
+
+@keyframes slideToLeft {
+    from {
+        left: 0;
+        width: 100%;
+    }
+    to {
+        left: 0;
+        width: 0;
+    }
+}
+
+@keyframes slideToRight {
+    from {
+        left: 0;
+        width: 100%;
+    }
+    to {
+        left: 100%;
+        width: 0;
+    }
+}
+
+.nav-menu a:hover {
+    color: var(--accent-cyan);
+}
+
+.nav-menu a:hover::after {
+    width: 100%;
+}
+
+/* 移动端禁用 hover 效果 */
+@media (max-width: 768px) {
+    .nav-menu a:hover {
+        color: var(--text-main);
+    }
+
+    .nav-menu a:hover::after {
+        width: 0;
+    }
+}
+
+.nav-menu a.active {
+    color: var(--accent-cyan);
+}
+
+.nav-menu a.active::after {
+    width: 100%;
+}
+
+/* =========================================
+    页面内容样式
+    ========================================= */
+.page-section {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.page-section.active {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 10;
+}
+
+.section-content {
+    width: 100%;
+    height: 100%;
+    padding: 60px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.section-content h1 {
+    font-size: 4rem;
+    color: var(--text-title);
+    margin-bottom: 40px;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+}
+
+.content-placeholder {
+    width: 100%;
+    max-width: 800px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 1.2rem;
+}
+
+/* =========================================
+    Explore 页面特殊样式
+    ========================================= */
+#page-explore {
+    position: relative;
+}
+
+#page-explore.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#page-explore .hero-overview {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 40px 90px;
+}
+
+#page-explore .galaxy-section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+/* =========================================
+    移动端/小屏幕适配补丁
+    ========================================= */
+@media (max-width: 768px) {
+    /* 1. 让导航栏占满全宽，并支持横向滑动 */
+    .top-nav {
+        right: auto;
+        left: 0;
+        width: 100vw;
+        padding: 15px 10px; /* 缩小外边距 */
+        overflow-x: auto; /* 超出部分允许横向滑动 */
+        -webkit-overflow-scrolling: touch; /* 让苹果手机滑动更丝滑 */
+    }
+
+    /* 隐藏横向滚动条，但保留滑动功能 */
+    .top-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* 2. 缩小菜单间距和字体 */
+    .nav-menu {
+        gap: 15px; /* 间距从 30px 缩小到 15px */
+        padding: 0 10px;
+    }
+
+    .nav-menu a {
+        font-size: 0.85rem;
+        padding: 8px 5px 6px 5px;
+        white-space: nowrap; /* 保证文字绝对不换行 */
+    }
+
+    /* 3. 顺便把主体的大标题也按比例缩小，防止太挤 */
+    .section-content h1 {
+        font-size: 2.8rem; /* 从 4rem 缩小 */
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    /* 4. 移动端显示滑动提示 */
+    .nav-scroll-hint {
+        display: block;
+        position: absolute;
+
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 0.7rem;
+        color: rgba(0, 242, 254, 0.6);
+        white-space: nowrap;
+        pointer-events: none;
+        animation: slideHint 2s ease-in-out infinite;
+        z-index: 1002;
+    }
+}
+
+/* 桌面端隐藏滑动提示 */
+@media (min-width: 769px) {
+    .nav-scroll-hint {
+        display: none !important;
+    }
+}
+
+@keyframes slideHint {
+    0%, 100% {
+        opacity: 0.6;
+        transform: translateY(-50%) translateX(0);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(-50%) translateX(-8px);
+    }
+}
