@@ -60,6 +60,7 @@ function navigateTo(pageName) {
 
 // 菜单项方向感知动画
 function setupNavMenuHoverDirection() {
+    
     const navLinks = document.querySelectorAll('.nav-menu a');
     
     navLinks.forEach((link, index) => {

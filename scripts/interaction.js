@@ -9,12 +9,10 @@
  *   3. 拖尾粒子效果 - 鼠标移动时产生粒子
  *   4. 点击涟漪效果 - 点击时产生扩散动画
  *   5. 悬浮放大效果 - 悬浮按钮时光标变大
- * 被使用的地方：
- *   - particle.js: 使用 mouseX, mouseY 计算粒子位置
- *   - index.html: id="cursor" 和 id="cursor-trail"
  * ================================
  */
-
+if (deviceDetector && deviceDetector.shouldLoadExpensiveEffects()) {
+    
 const cursor = document.getElementById('cursor');
 const trail = document.getElementById('cursor-trail');
 
@@ -181,11 +179,18 @@ document.querySelectorAll('button, a, .glass-card, .star-node, .showcase-card').
     });
 });
 
-document.addEventListener('mousedown', (e) => {
-    const ripple = document.createElement('div');
-    ripple.className = 'click-ripple-effect';
-    ripple.style.left = e.clientX + 'px';
-    ripple.style.top = e.clientY + 'px';
-    document.body.appendChild(ripple);
-    setTimeout(() => ripple.remove(), 1200);
-});
+    document.addEventListener('mousedown', (e) => {
+        const ripple = document.createElement('div');
+        ripple.className = 'click-ripple-effect';
+        ripple.style.left = e.clientX + 'px';
+        ripple.style.top = e.clientY + 'px';
+        document.body.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 1200);
+    });
+} else {
+    // 手机版：隐藏鼠标特效元素
+    const cursor = document.getElementById('cursor');
+    const trail = document.getElementById('cursor-trail');
+    if (cursor) cursor.style.display = 'none';
+    if (trail) trail.style.display = 'none';
+}

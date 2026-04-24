@@ -44,7 +44,8 @@
     text-transform: uppercase;
     transition: all 0.3s ease;
     position: relative;
-    padding: 12px 10px 10px 10px;#上边距，右边距，下边距，左边距
+    padding: 12px 10px 10px 10px;
+    /* 上边距，右边距，下边距，左边距 */
     display: block;
 }
 
@@ -217,4 +218,42 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
+}
+/* =========================================
+    移动端/小屏幕适配补丁
+    ========================================= */
+@media (max-width: 768px) {
+    /* 1. 让导航栏占满全宽，并支持横向滑动 */
+    .top-nav {
+        right: auto;
+        left: 0;
+        width: 100vw;
+        padding: 15px 10px; /* 缩小外边距 */
+        overflow-x: auto; /* 超出部分允许横向滑动 */
+        -webkit-overflow-scrolling: touch; /* 让苹果手机滑动更丝滑 */
+    }
+
+    /* 隐藏横向滚动条，但保留滑动功能 */
+    .top-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* 2. 缩小菜单间距和字体 */
+    .nav-menu {
+        gap: 15px; /* 间距从 30px 缩小到 15px */
+        padding: 0 10px;
+    }
+
+    .nav-menu a {
+        font-size: 0.85rem;
+        padding: 8px 5px 6px 5px;
+        white-space: nowrap; /* 保证文字绝对不换行 */
+    }
+
+    /* 3. 顺便把主体的大标题也按比例缩小，防止太挤 */
+    .section-content h1 {
+        font-size: 2.8rem; /* 从 4rem 缩小 */
+        text-align: center;
+        margin-bottom: 20px;
+    }
 }

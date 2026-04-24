@@ -28,6 +28,10 @@
 
 * {
     margin: 0; padding: 0; box-sizing: border-box;
+}
+
+/* 只有在宽屏电脑端，才隐藏系统自带的鼠标 */
+body.device-desktop * {
     cursor: none !important;
 }
 

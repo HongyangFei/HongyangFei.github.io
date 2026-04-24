@@ -1,20 +1,4 @@
-/**
- * ================================
- * particle.js - 开场粒子帘幕效果
- * ================================
- * 作用：创建开场时的粒子动画和文字散落效果
- * 功能：
- *   1. 粒子帘幕 - 点击 Unveil 按钮时爆炸散开（仅桌面版）
- *   2. 文字散落 - 鼠标靠近时文字会散开（仅桌面版）
- * 被使用的地方：
- *   - index.html: id="veil-canvas" 和 class="scatter-text"
- *   - main.js: 调用 particles.forEach(p => p.explode())
- * ================================
- */
-
-// 检查是否应该加载粒子效果
-const shouldLoadParticles = !deviceDetector || deviceDetector.shouldLoadExpensiveEffects();
-
+// ---开场粒子帘幕 ---
 const canvas = document.getElementById('veil-canvas');
 const ctx = canvas.getContext('2d');
 let particles = [];
@@ -68,7 +52,7 @@ class Particle {
         let distance = Math.sqrt(dx * dx + dy * dy);
         let maxDistance = 150;
         let force = (maxDistance - distance) / maxDistance;
-                if (distance < maxDistance) {
+        if (distance< maxDistance) {
             this.x -= (dx / distance) * force * this.density;
             this.y -= (dy / distance) * force * this.density;
         } else {
@@ -101,23 +85,16 @@ function animateParticles() {
     else canvas.style.display = 'none';
 }
 
-// 只在桌面版初始化粒子
-if (shouldLoadParticles) {
-    initParticles();
-    animateParticles();
-} else {
-    // 手机版：直接隐藏 canvas
-    if (canvas) canvas.style.display = 'none';
-}
+initParticles();
+animateParticles();
 
-// --- 打字散落特效初始化（仅桌面版）---
-if (shouldLoadParticles) {
-    document.querySelectorAll('.scatter-text').forEach(el => {
+// --- 打字散落特效初始化 ---
+document.querySelectorAll('.scatter-text').forEach(el => {
     const text = el.dataset.text || '';
     el.innerHTML = '';
     [...text].forEach((ch, index) => {
         const span = document.createElement('span');
-        span.className = ch === ' ' ? 'char space' : 'char';
+        span.className = ch === ' ' ? 'char space' : 'char'; 
         span.textContent = ch === ' ' ? '\u00A0' : ch;
         span.dataset.index = index;
         el.appendChild(span);
@@ -174,13 +151,7 @@ function updateScatterEffect() {
                 char.style.filter = 'none';
             }
         });
-        });
-            requestAnimationFrame(updateScatterEffect);
-    }
-    updateScatterEffect();
-} else {
-    // 手机版：禁用文字散落效果
-    document.querySelectorAll('.scatter-text').forEach(el => {
-        el.style.pointerEvents = 'none';
     });
+    requestAnimationFrame(updateScatterEffect);
 }
+updateScatterEffect();
