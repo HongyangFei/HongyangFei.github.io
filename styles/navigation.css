@@ -267,4 +267,36 @@
         text-align: center;
         margin-bottom: 20px;
     }
+    /* 4. 移动端显示滑动提示 */
+    .nav-scroll-hint {
+        display: block;
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 0.7rem;
+        color: rgba(0, 242, 254, 0.6);
+        white-space: nowrap;
+        pointer-events: none;
+        animation: slideHint 2s ease-in-out infinite;
+        z-index: 1002;
+    }
+}
+
+/* 桌面端隐藏滑动提示 */
+@media (min-width: 769px) {
+    .nav-scroll-hint {
+        display: none !important;
+    }
+}
+
+@keyframes slideHint {
+    0%, 100% {
+        opacity: 0.6;
+        transform: translateY(-50%) translateX(0);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(-50%) translateX(-8px);
+    }
 }

@@ -9,9 +9,11 @@
  * ================================
  */
 
+const navScrollHint = document.querySelector('.nav-scroll-hint');
+
+// 移动端处理滑动和点击
 if (deviceDetector && deviceDetector.shouldHideLeftPanel()) {
     const topNav = document.querySelector('.top-nav');
-    const navScrollHint = document.querySelector('.nav-scroll-hint');
     let hasScrolled = false;
 
     if (topNav && navScrollHint) {
@@ -23,11 +25,6 @@ if (deviceDetector && deviceDetector.shouldHideLeftPanel()) {
                 navScrollHint.style.pointerEvents = 'none';
                 navScrollHint.style.transition = 'opacity 0.3s ease';
             }
-        }, { passive: true });
-
-        // 监听触摸事件，确保点击在滑动时也能工作
-        topNav.addEventListener('touchmove', (e) => {
-            // 允许滑动，不阻止默认行为
         }, { passive: true });
 
         // 点击链接时隐藏提示
