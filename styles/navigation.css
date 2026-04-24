@@ -40,7 +40,8 @@
     text-transform: uppercase;
     transition: all 0.3s ease;
     position: relative;
-    padding-bottom: 5px;
+    padding: 10px 12px 5px 12px;
+    display: block;
 }
 
 .nav-menu a::after {
