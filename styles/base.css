@@ -1,0 +1,92 @@
+/**
+ * ================================
+ * base.css - 全局基础样式
+ * ================================
+ * 作用：定义全局变量、颜色、动画和基础样式
+ * 功能：
+ *   1. CSS 变量定义 - 颜色、背景等
+ *   2. 全局样式 - body, *, 光标隐藏
+ *   3. 背景星星效果
+ *   4. 全局动画 - twinkle, floatAvatar, cardFadeUp 等
+ * 被使用的地方：所有其他 CSS 文件都依赖这里的变量
+ * ================================
+ */
+
+/*================================
+    1. 全局与色彩变量
+    ================================= */
+:root {
+    --bg-dark: #030508;
+    --glass-bg: rgba(20, 25, 35, 0.4);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --text-main: #b0c4de;
+    --text-title: #ffffff;
+    --accent-cyan: #00f2fe;
+    --accent-blue: #4facfe;
+    --gradient: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-blue) 100%);
+}
+
+* {
+    margin: 0; padding: 0; box-sizing: border-box;
+    cursor: none !important;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    position: relative;
+}
+
+.stars {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+    background-image:
+        radial-gradient(1px 1px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 40px 70px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 90px 40px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 160px 120px, #e0f7fa, rgba(0,0,0,0));
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    opacity: 0.4;
+    animation: twinkle 8s infinite linear alternate;
+}
+
+@keyframes twinkle { 
+    0% { opacity: 0.2; } 
+    100% { opacity: 0.7; } 
+}
+
+@keyframes floatAvatar {
+    0% { transform: translateY(0px); box-shadow: 0 10px 20px rgba(0,0,0.5); }
+    50% { transform: translateY(-8px); box-shadow: 0 20px 30px rgba(0,0,0.6); }
+    100% { transform: translateY(0px); box-shadow: 0 10px 20px rgba(0,0,0.5); }
+}
+
+@keyframes cardFadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes overviewFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scrollHint {
+    0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.75; }
+    50% { transform: translateX(-50%) translateY(8px); opacity: 1; }
+}
+
+@keyframes ripleAnim {
+    0% { width: 10px; height: 10px; opacity: 1; border-width: 2px; }
+    100% { width: 100px; height: 100px; opacity: 0; border-width: 0px; }
+}

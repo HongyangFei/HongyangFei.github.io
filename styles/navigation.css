@@ -1,0 +1,215 @@
+/**
+ * ================================
+ * navigation.css - 右上角导航菜单样式
+ * ================================
+ * 作用：控制右上角导航菜单的样式和动画
+ * 位置：index.html 中的 <nav class="top-nav">
+ * 功能：
+ *   1. .top-nav - 导航容器（固定在右上角，top: 30px）
+ *   2. .nav-menu - 菜单列表
+ *   3. 横线动画 - 从左/右滑入，离开时滑出
+ *   4. active状态 - 当前页面的标签横线始终显示
+ * 被使用的地方：
+ *   - scripts/navigation.js: 添加/移除 active, from-left, from-right, to-left, to-right 类
+ * ================================
+ */
+
+/* =========================================
+    导航菜单样式
+    ========================================= */
+.top-nav {
+    position: fixed;
+    top: 30px;
+    right: 0;
+    z-index: 1001;
+    padding: 20px 40px;
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.nav-menu a {
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.nav-menu a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--accent-cyan);
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-menu a.from-left::after {
+    animation: slideFromLeft 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.nav-menu a.from-right::after {
+    animation: slideFromRight 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.nav-menu a.to-left::after {
+    animation: slideToLeft 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.nav-menu a.to-right::after {
+    animation: slideToRight 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes slideFromLeft {
+    from {
+        left: 0;
+        width: 0;
+    }
+    to {
+        left: 0;
+        width: 100%;
+    }
+}
+
+@keyframes slideFromRight {
+    from {
+        left: 100%;
+        width: 0;
+    }
+    to {
+        left: 0;
+        width: 100%;
+    }
+}
+
+@keyframes slideToLeft {
+    from {
+        left: 0;
+        width: 100%;
+    }
+    to {
+        left: 0;
+        width: 0;
+    }
+}
+
+@keyframes slideToRight {
+    from {
+        left: 0;
+        width: 100%;
+    }
+    to {
+        left: 100%;
+        width: 0;
+    }
+}
+
+.nav-menu a:hover {
+    color: var(--accent-cyan);
+}
+
+.nav-menu a:hover::after {
+    width: 100%;
+}
+
+.nav-menu a.active {
+    color: var(--accent-cyan);
+}
+
+.nav-menu a.active::after {
+    width: 100%;
+}
+
+/* =========================================
+    页面内容样式
+    ========================================= */
+.page-section {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.page-section.active {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 10;
+}
+
+.section-content {
+    width: 100%;
+    height: 100%;
+    padding: 60px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.section-content h1 {
+    font-size: 4rem;
+    color: var(--text-title);
+    margin-bottom: 40px;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+}
+
+.content-placeholder {
+    width: 100%;
+    max-width: 800px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 1.2rem;
+}
+
+/* =========================================
+    Explore 页面特殊样式
+    ========================================= */
+#page-explore {
+    position: relative;
+}
+
+#page-explore.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#page-explore .hero-overview {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 40px 90px;
+}
+
+#page-explore .galaxy-section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}

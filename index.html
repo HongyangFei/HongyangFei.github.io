@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongyang Fei | Interactive Universe</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/layout.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/navigation.css">
+</head>
+<body>
+
+    <div class="stars"></div>
+    <canvas id="veil-canvas"></canvas>
+
+    <div id="unveil-content">
+        <h1 class="veil-title scatter-text" data-text="Thinking, toward infinity"></h1>
+        <p class="veil-subtitle scatter-text" data-text="Welcome to my expanding universe"></p>
+        <button id="unveil-btn">
+            Unveil <div class="btn-ripple"></div>
+        </button>
+    </div>
+
+    <div class="custom-cursor" id="cursor"></div>
+    <div class="cursor-trail" id="cursor-trail"></div>
+
+    <nav class="top-nav">
+        <ul class="nav-menu">
+            <li><a href="#" onclick="navigateTo('about')">About Me</a></li>
+            <li><a href="#" onclick="navigateTo('research')">Research</a></li>
+            <li><a href="#" onclick="navigateTo('projects')">Projects</a></li>
+            <li><a href="#" onclick="navigateTo('musings')">Musings</a></li>
+            <li><a href="#" onclick="navigateTo('explore')">Explore</a></li>
+        </ul>
+    </nav>
+
+    <div id="main-wrapper">
+        <aside class="left-panel">
+            <button id="panel-toggle-btn" class="panel-toggle-btn">
+                <i class="ph ph-caret-left"></i>
+            </button>
+            <img src="https://via.placeholder.com/160" alt="Hongyang Fei" class="profile-img">
+            <h1 class="name-title">Hongyang Fei</h1>
+            <p class="motto">Think beyond the visible, and build toward the possible.</p>
+
+            <div class="focus-grid">
+                <div class="focus-pill">Recommender Systems</div>
+                <div class="focus-pill">Edge Computing</div>
+                <div class="focus-pill">Machine Learning</div>
+                <div class="focus-pill">Knowledge Distillation</div>
+            </div>
+
+            <div class="edu-card">
+                <div class="edu-item">
+                    <span class="edu-label">School</span>
+                    <span class="edu-value">Nanjing University of Information Science &amp; Technology</span>
+                </div>
+                <div class="edu-item">
+                    <span class="edu-label">Degree</span>
+                    <span class="edu-value">B.Eng. in Computer Science</span>
+                </div>
+                <div class="edu-item">
+                    <span class="edu-label">GPA</span>
+                    <span class="edu-value">4 / 4</span>
+                </div>
+            </div>
+
+            <div class="social-links">
+                <a href="#"><i class="ph ph-github-logo"></i> GitHub</a>
+                <a href="mailto:your_email@example.com"><i class="ph ph-envelope-simple"></i> Email</a>
+            </div>
+        </aside>
+
+        <main class="right-panel">
+            <div class="page-track" id="page-track">
+                                <section class="page-section" id="page-about">
+                    <h1>About Me</h1>
+                    <div class="content-placeholder"></div>
+                </section>
+
+                <section class="page-section" id="page-research">
+                <h1>Research Experience</h1>
+                    <div class="content-placeholder"></div>
+                </section>
+
+                <section class="page-section" id="page-projects">
+                    <h1>Core Projects</h1>
+                <div class="content-placeholder"></div>
+                </section>
+
+                <section class="page-section" id="page-musings">
+                    <h1>Tech Musings</h1>
+                    <div class="content-placeholder"></div>
+                </section>
+
+                <section class="page-section" id="page-explore">
+                    <div id="constellation-wrapper">
+                        <svg class="constellation-lines" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <polyline points="15,70 28,55 42,58 55,50 68,70 78,52 72,28" fill="none" stroke="rgba(0, 242, 254, 0.5)" stroke-width="0.2"/>
+                        </svg>
+                        <div class="star-node" style="left: 15%; top: 70%; animation-delay: 0s;" data-target="sec-about" onclick="warpToStar(this)"><div class="star-label">About Me</div></div>
+                        <div class="star-node" style="left: 28%; top: 55%; animation-delay: 0.4s;" data-target="sec-activities" onclick="warpToStar(this)"><div class="star-label label-up">Activities</div></div>
+                        <div class="star-node" style="left: 42%; top: 58%; animation-delay: 0.8s;" data-target="sec-hobbies" onclick="warpToStar(this)"><div class="star-label label-up">Hobbies</div></div>
+                        <div class="star-node" style="left: 55%; top: 50%; animation-delay: 1.2s;" data-target="sec-favorites" onclick="warpToStar(this)"><div class="star-label label-up">Favorites</div></div>
+                        <div class="star-node" style="left: 68%; top: 70%; animation-delay: 1.6s;" data-target="sec-awards" onclick="warpToStar(this)"><div class="star-label">Awards</div></div>
+                        <div class="star-node" style="left: 78%; top: 52%; animation-delay: 2.0s;" data-target="sec-mentors" onclick="warpToStar(this)"><div class="star-label nudge-right">Mentors</div></div>
+                        <div class="star-node" style="left: 72%; top: 28%; animation-delay: 2.4s;" data-target="sec-musings" onclick="warpToStar(this)"><div class="star-label label-up">Musings</div></div>
+                    </div>
+                    <div id="content-view">
+                        <button class="back-btn" onclick="warpBack()"><i class="ph ph-arrow-left"></i> Return to Galaxy</button>
+                        <div id="sec-about" class="inner-content-section"><h2 class="content-title">About Me</h2><p class="content-subtitle">关于我</p><div class="glass-card"><p>I am actively searching for forward-looking research directions with high future potential.</p></div></div>
+                        <div id="sec-activities" class="inner-content-section"><h2 class="content-title">Activities</h2><p class="content-subtitle">活动</p><div class="glass-card"><p>Tech meetups, academic conferences, and open-source contributions.</p></div></div>
+                        <div id="sec-hobbies" class="inner-content-section"><h2 class="content-title">Hobbies</h2><p class="content-subtitle">爱好</p><div class="glass-card"><p>🏓 Left-handed Table Tennis<br>🏀 Basketball<br>⚾ MLB & 🏈 NFL</p></div></div>
+                        <div id="sec-favorites" class="inner-content-section"><h2 class="content-title">Favorites</h2><p class="content-subtitle">喜欢的事物</p><div class="glass-card"><p>Smart Home Automation, PC Building, Hardware Tuning.</p></div></div>
+                        <div id="sec-awards" class="inner-content-section"><h2 class="content-title">Awards</h2><p class="content-subtitle">曾获得的奖项</p><div class="glass-card"><p>Scholarships, competition highlights, and postgraduate admission offers will be populated here.</p></div></div>
+                        <div id="sec-mentors" class="inner-content-section"><h2 class="content-title">Mentors</h2><p class="content-subtitle">曾经的老师</p><div class="glass-card"><p>Grateful for the guidance of those who lit the path in Machine Learning and Research.</p></div></div>
+                        <div id="sec-musings" class="inner-content-section"><h2 class="content-title">Musings</h2><p class="content-subtitle">我的想法思考</p><div class="glass-card"><h3>The "Digital Clones" Concept</h3><p>Can we truly replicate the decision-making process of historical figures using LLMs?</p></div></div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="scripts/config.js"></script>
+    <script src="scripts/navigation.js"></script>
+    <script src="scripts/starfield.js"></script>
+    <script src="scripts/interaction.js"></script>
+    <script src="scripts/particle.js"></script>
+    <script src="scripts/ui.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+</html>

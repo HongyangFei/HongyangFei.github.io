@@ -1,0 +1,271 @@
+/* =========================================
+    2. 粒子帘幕与开场区
+    ========================================= */
+#veil-canvas {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: 9998; pointer-events: auto;
+    background: rgba(3, 5, 8, 0.95);
+    transition: opacity 0.6s ease;
+}
+
+#unveil-content {
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    z-index: 9999; text-align: center;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    display: flex; flex-direction: column; align-items: center; gap: 30px;
+    pointer-events: none;
+    width: min(92vw, 1400px);
+    overflow: visible;
+}
+
+.veil-title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(4.2rem, 7vw, 6.6rem);
+    font-weight: 500;
+    letter-spacing: 0;
+    font-style: italic;
+    line-height: 1.18;
+    text-shadow: 0 0 24px rgba(0, 242, 254, 0.08);
+    transition: transform 0.18s ease, filter 0.18s ease;
+    will-change: transform, filter;
+}
+
+.veil-title .char {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding-right: 0.04em;
+}
+
+.scatter-text .char {
+    display: inline-block;
+    position: relative;
+    padding: 0 0.14em 0.04em 0.14em;
+    margin: 0 -0.10em;
+    transition: transform 0.22s cubic-bezier(0.22, 0.8, 0.24, 1), opacity 0.18s ease, filter 0.18s ease;
+}
+
+.scatter-text .char.space { width: 0.35em; }
+
+.veil-subtitle {
+    font-size: clamp(1.35rem, 2.2vw, 2.1rem);
+    color: var(--text-main);
+    font-weight: 300;
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+    text-shadow: 0 0 18px rgba(176, 196, 222, 0.06);
+}
+
+#unveil-btn {
+    pointer-events: auto;
+    background: transparent; color: var(--accent-cyan);
+    border: 1px solid var(--accent-cyan);
+    padding: 15px 50px;
+    font-size: 1.3rem; border-radius: 40px;
+    position: relative; overflow: hidden; letter-spacing: 1px;
+    box-shadow: 0 0 20px rgba(0, 242, 254, 0.1);
+    transition: all 0.3s ease;
+}
+
+#unveil-btn:hover {
+    background: rgba(0, 242, 254, 0.1); box-shadow: 0 0 40px rgba(0, 242, 254, 0.6);
+    transform: scale(1.08); color: #fff;
+}
+
+.btn-ripple {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(1);
+    width: 100%; height: 100%; border: 1px solid rgba(0, 242, 254, 0.25);
+    border-radius: 40px; z-index: -1; opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+#unveil-btn:hover .btn-ripple { opacity: 1; transform: translate(-50%, -50%) scale(1.06); }
+
+/* =========================================
+    3. 主体布局：左侧固定，右侧星图
+    ========================================= */
+#main-wrapper {
+    display: flex; height: 100vh; width: 100vw;
+    padding: 20px; gap: 40px;
+    opacity: 0; transform: scale(0.95);
+    transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
+}
+
+#main-wrapper.revealed { opacity: 1; transform: scale(1); }
+
+.left-panel {
+    flex: 0 0 320px;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 40px 20px;
+    background: var(--glass-bg); backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border); border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    height: 100%;
+    overflow-y: auto;
+    z-index: 10;
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    position: relative;
+    overflow: visible;
+}
+.left-panel::-webkit-scrollbar { display: none; }
+
+.left-panel.collapsed {
+    margin-left: -340px;
+    box-shadow: none;
+}
+
+.panel-toggle-btn {
+    position: absolute;
+    top: 40px;
+    left: calc(100% + 20px);
+    z-index: 1000;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--text-main);
+    display: flex; justify-content: center; align-items: center;
+    font-size: 1.2rem;
+    backdrop-filter: blur(10px);
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.panel-toggle-btn:hover {
+    background: rgba(0, 242, 254, 0.15);
+    border-color: var(--accent-cyan);
+    color: #fff;
+    box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+    transform: scale(1.1);
+}
+
+.left-panel.collapsed .panel-toggle-btn {
+    background: rgba(0, 242, 254, 0.1);
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan);
+}
+
+.left-panel.collapsed .panel-toggle-btn i {
+    transform: rotate(180deg);
+    transition: transform 0.4s ease;
+}
+
+.left-panel.collapsed > *:not(.panel-toggle-btn) {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.profile-img {
+    width: 160px; height: 160px; border-radius: 50%;
+    object-fit: cover; margin-bottom: 25px;
+    border: 3px solid transparent;
+    background: linear-gradient(var(--bg-dark), var(--bg-dark)) padding-box, var(--gradient) border-box;
+    animation: floatAvatar 6s ease-in-out infinite;
+}
+
+.name-title { font-size: 2.2rem; font-weight: 700; color: var(--text-title); margin-bottom: 5px; }
+.sub-title { font-size: 0.95rem; color: var(--text-main); margin-bottom: 20px; text-align: center; }
+.motto {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.78);
+    text-align: center;
+    max-width: 240px;
+    margin-bottom: 14px;
+    font-style: italic;
+}
+
+.focus-grid {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.focus-pill {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(0, 242, 254, 0.22);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.78rem;
+    line-height: 1;
+    color: var(--accent-cyan);
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.edu-card {
+    width: 100%;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 18px;
+    padding: 18px 18px 14px;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.edu-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.edu-label {
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 1.6px;
+    color: rgba(255,255,255,0.45);
+}
+
+.edu-value {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #ffffff;
+}
+
+.social-links { display: flex; flex-direction: column; width: 100%; gap: 12px; }
+.social-links a {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 20px; text-decoration: none; color: var(--text-main);
+    background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border);
+    border-radius: 12px; transition: all 0.3s;
+}
+.social-links a:hover {
+    background: rgba(0, 242, 254, 0.1); color: var(--text-title);
+    border-color: var(--accent-cyan); transform: translateX(5px);
+}
+
+/* =========================================
+    4. 右侧：北斗七星导航系统
+    ========================================= */
+.right-panel {
+    flex: 1;
+    position: relative;
+    perspective: 1000px;
+    overflow: hidden;
+    border-radius: 24px;
+    height: 100%;
+}
+
+.page-track {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.galaxy-section {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.right-panel::-webkit-scrollbar {
+    display: none;
+}
