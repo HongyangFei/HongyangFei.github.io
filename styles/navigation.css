@@ -44,7 +44,7 @@
     text-transform: uppercase;
     transition: all 0.3s ease;
     position: relative;
-    padding: 12px 8px 10px 8px;#上边距，右边距，下边距，左边距
+    padding: 12px 10px 10px 10px;#上边距，右边距，下边距，左边距
     display: block;
 }
 
