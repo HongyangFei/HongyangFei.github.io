@@ -68,7 +68,7 @@ class Particle {
         let distance = Math.sqrt(dx * dx + dy * dy);
         let maxDistance = 150;
         let force = (maxDistance - distance) / maxDistance;
-                if (distance < maxDistance) {
+        if (distance > 0 && distance < maxDistance) {
             this.x -= (dx / distance) * force * this.density;
             this.y -= (dy / distance) * force * this.density;
         } else {
@@ -97,8 +97,11 @@ function initParticles() {
 function animateParticles() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (let i = 0; i < particles.length; i++) particles[i].update();
-    if (!isRevealed || particles[0].opacity > 0) requestAnimationFrame(animateParticles);
-    else canvas.style.display = 'none';
+    if (!isRevealed || (particles[0] && particles[0].opacity > 0)) {
+        requestAnimationFrame(animateParticles);
+    } else {
+        canvas.style.display = 'none';
+    }
 }
 
 // 只在桌面版初始化粒子

@@ -267,7 +267,7 @@
         text-align: center;
         margin-bottom: 20px;
     }
-    /* 4. 移动端显示滑动提示 */
+        /* 4. 移动端显示滑动提示 */
     .nav-scroll-hint {
         display: block;
         position: fixed;
@@ -279,6 +279,11 @@
         pointer-events: none;
         animation: slideHint 2s ease-in-out infinite;
         z-index: 1002;
+    }
+    
+    /* 当导航栏不需要滑动时隐藏提示 */
+    .nav-scroll-hint.hidden {
+        display: none !important;
     }
 }
 
