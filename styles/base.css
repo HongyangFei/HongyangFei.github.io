@@ -123,5 +123,5 @@ body.device-very-small #main-wrapper {
 
 body.device-small .top-nav,
 body.device-very-small .top-nav {
-    top: 0 !important;
+    top: -4px !important;
 }
