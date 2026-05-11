@@ -1,14 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     const about = document.getElementById('about-content');
     if (!about) return;
-
-    // 检查是否是手机端
-    const isMobile = window.innerWidth <= 480;
     
     about.innerHTML = `
         <div class="about-page">
             <div class="about-title-wrapper">
-                ${isMobile ? '<img class="about-title-avatar" src="photos/white.jpg" alt="Hongyang Fei">' : ''}
+                <img class="about-title-avatar" src="photos/white.jpg" alt="Hongyang Fei">
                 <h1 class="about-title">About Me</h1>
             </div>
 
@@ -52,16 +49,3 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
     `;
 });
-x;
-        border-radius: 50%;
-        object-fit: cover;
-        flex-shrink: 0;
-        border: 2px solid rgba(0, 242, 254, 0.3);
-    }
-
-    .about-title {
-        font-size: clamp(1.8rem, 5vw, 2.5rem);
-        margin: 0;
-    }
-}
-</antml>
