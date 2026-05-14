@@ -22,13 +22,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
 
                     <div class="project-grid">
-                        <a class="project-card" href="#" target="_blank">
+                        <a class="project-card" href="https://github.com/HongyangFei/MKD_Rec" target="_blank">
                             <span class="project-index">01</span>
                             <h2>On-device Recommendation</h2>
                             <p>Sparsity research for efficient recommendation on edge devices.</p>
                         </a>
 
-                        <a class="project-card" href="#" target="_blank">
+                        <a class="project-card" href="https://github.com/HongyangFei/CS_BOT" target="_blank">
                             <span class="project-index">02</span>
                             <h2>LLM Agents</h2>
                             <p>Exploring agent workflows, automation, and deployment efficiency.</p>
