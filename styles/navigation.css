@@ -45,8 +45,8 @@
     transition: all 0.3s ease;
     position: relative;
     padding: 12px 10px 10px 10px;
-    /* 上边距，右边距，下边距，左边距 */
     display: block;
+    font-weight: 500;
 }
 
 .nav-menu a::after {
@@ -55,8 +55,9 @@
     bottom: 0;
     left: 0;
     width: 0;
-    height: 1px;
-    background: var(--accent-cyan);
+    height: 2px;
+    background: var(--gradient);
+    box-shadow: 0 0 8px rgba(0, 242, 254, 0.5);
     transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -122,6 +123,7 @@
 
 .nav-menu a:hover {
     color: var(--accent-cyan);
+    text-shadow: 0 0 12px rgba(0, 242, 254, 0.4);
 }
 
 .nav-menu a:hover::after {
@@ -216,15 +218,32 @@
 .content-placeholder {
     width: 100%;
     max-width: 800px;
-    height: 300px;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid var(--glass-border);
+    min-height: 300px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px dashed var(--glass-border);
     border-radius: 20px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.4);
     font-size: 1.2rem;
+    padding: 40px;
+    text-align: center;
+    gap: 16px;
+}
+
+.content-placeholder::before {
+    content: '📝';
+    font-size: 3rem;
+    opacity: 0.5;
+}
+
+.content-placeholder::after {
+    content: 'Content coming soon...';
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.3);
+    letter-spacing: 1px;
 }
 
 /* =========================================
@@ -255,17 +274,54 @@
     overflow: hidden;
 }
 /* =========================================
-    移动端/小屏幕适配补丁
+    响应式断点优化
     ========================================= */
-@media (max-width: 768px) {
+
+/* 大屏幕优化 */
+@media (min-width: 1440px) {
+    .top-nav {
+        padding: 12px 50px;
+    }
+    
+    .nav-menu {
+        gap: 40px;
+    }
+    
+    .nav-menu a {
+        font-size: 1rem;
+        padding: 14px 12px 12px 12px;
+    }
+}
+
+/* 平板优化 */
+@media (max-width: 1023px) and (min-width: 768px) {
+    .top-nav {
+        padding: 10px 30px;
+    }
+    
+    .nav-menu {
+        gap: 20px;
+    }
+    
+    .nav-menu a {
+        font-size: 0.9rem;
+        padding: 10px 8px 8px 8px;
+    }
+}
+
+/* 移动端/小屏幕适配 */
+@media (max-width: 767px) {
     /* 1. 让导航栏占满全宽，并支持横向滑动 */
     .top-nav {
         right: auto;
         left: 0;
         width: 100vw;
-        padding: 15px 10px; /* 缩小外边距 */
-        overflow-x: auto; /* 超出部分允许横向滑动 */
-        -webkit-overflow-scrolling: touch; /* 让苹果手机滑动更丝滑 */
+        padding: 15px 10px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        background: rgba(3, 5, 8, 0.85);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     /* 隐藏横向滚动条，但保留滑动功能 */
@@ -275,34 +331,39 @@
 
     /* 2. 缩小菜单间距和字体 */
     .nav-menu {
-        gap: 15px; /* 间距从 30px 缩小到 15px */
+        gap: 18px;
         padding: 0 10px;
     }
 
     .nav-menu a {
-        font-size: 0.85rem;
-        padding: 8px 5px 6px 5px;
-        white-space: nowrap; /* 保证文字绝对不换行 */
+        font-size: 0.88rem;
+        padding: 10px 6px 8px 6px;
+        white-space: nowrap;
     }
 
-    /* 3. 顺便把主体的大标题也按比例缩小，防止太挤 */
+    /* 3. 优化主体标题 */
     .section-content h1 {
-        font-size: 2.8rem; /* 从 4rem 缩小 */
+        font-size: 2.8rem;
         text-align: center;
         margin-bottom: 20px;
     }
-        /* 4. 移动端显示滑动提示 */
+    
+    /* 4. 移动端显示滑动提示 */
     .nav-scroll-hint {
         display: block;
         position: fixed;
         right: 10px;
         top: 15px;
         font-size: 0.7rem;
-        color: rgba(0, 242, 254, 0.6);
+        color: rgba(0, 242, 254, 0.7);
         white-space: nowrap;
         pointer-events: none;
         animation: slideHint 2s ease-in-out infinite;
         z-index: 1002;
+        background: rgba(3, 5, 8, 0.8);
+        padding: 4px 8px;
+        border-radius: 6px;
+        border: 1px solid rgba(0, 242, 254, 0.3);
     }
     
     /* 当导航栏不需要滑动时隐藏提示 */
@@ -312,7 +373,7 @@
 }
 
 /* 桌面端隐藏滑动提示 */
-@media (min-width: 769px) {
+@media (min-width: 768px) {
     .nav-scroll-hint {
         display: none !important;
     }
@@ -320,11 +381,11 @@
 
 @keyframes slideHint {
     0%, 100% {
-        opacity: 0.6;
-        transform: translateY(-50%) translateX(0);
+        opacity: 0.7;
+        transform: translateX(0);
     }
     50% {
         opacity: 1;
-        transform: translateY(-50%) translateX(-8px);
+        transform: translateX(-6px);
     }
 }

@@ -164,18 +164,20 @@ function animateTrailParticles() {
 }
 animateTrailParticles();
 
-document.querySelectorAll('button, a, .glass-card, .star-node, .showcase-card').forEach(el => {
+document.querySelectorAll('button, a, .glass-card, .star-node, .showcase-card, .project-card, .profile-img, .about-photo').forEach(el => {
     el.addEventListener('mouseenter', () => {
-        trail.style.width = '45px';
-        trail.style.height = '45px';
-        trail.style.background = 'rgba(0, 242, 254, 0.1)';
-        trail.style.borderColor = 'rgba(0, 242, 254, 0.8)';
+        trail.style.width = '50px';
+        trail.style.height = '50px';
+        trail.style.background = 'rgba(0, 242, 254, 0.08)';
+        trail.style.borderColor = 'rgba(0, 242, 254, 0.9)';
+        trail.style.boxShadow = '0 0 25px rgba(0, 242, 254, 0.4)';
     });
     el.addEventListener('mouseleave', () => {
-        trail.style.width = '36px';
-        trail.style.height = '36px';
+        trail.style.width = '40px';
+        trail.style.height = '40px';
         trail.style.background = 'transparent';
-        trail.style.borderColor = 'rgba(0, 242, 254, 0.5)';
+        trail.style.borderColor = 'rgba(0, 242, 254, 0.6)';
+        trail.style.boxShadow = '0 0 20px rgba(0, 242, 254, 0.25)';
     });
 });
 

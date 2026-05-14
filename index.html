@@ -9,11 +9,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="styles/base.css">
+        <link rel="stylesheet" href="styles/base.css">
     <link rel="stylesheet" href="styles/layout.css">
     <link rel="stylesheet" href="styles/components.css">
     <link rel="stylesheet" href="styles/navigation.css">
+    <link rel="stylesheet" href="styles/animations.css">
     <link rel="stylesheet" href="Contents/aboutme_style.css">
+    <link rel="stylesheet" href="Contents/research_style.css">
 
 </head>
 <body>
@@ -52,11 +54,10 @@
             <h1 class="name-title">Hongyang Fei</h1>
             <p class="motto">Think beyond the visible, and build toward the possible.</p>
 
-            <div class="focus-grid">
-                <div class="focus-pill">Recommender Systems</div>
+                <div class="focus-grid">
+                <div class="focus-pill">Recommendation Systems</div>
                 <div class="focus-pill">Edge Computing</div>
-                <div class="focus-pill">Machine Learning</div>
-                <div class="focus-pill">Knowledge Distillation</div>
+                <div class="focus-pill">LLM Agents</div>
             </div>
 
             <div class="edu-card">
@@ -86,9 +87,8 @@
                     <div id="about-content"></div>
                 </section>
 
-                <section class="page-section" id="page-research">
-                <h1>Research Experience</h1>
-                    <div class="content-placeholder"></div>
+                                <section class="page-section" id="page-research">
+                    <div id="research-content"></div>
                 </section>
 
                 <section class="page-section" id="page-projects">
@@ -106,13 +106,13 @@
                         <svg class="constellation-lines" viewBox="0 0 100 100" preserveAspectRatio="none">
                             <polyline points="15,70 28,55 42,58 55,50 68,70 78,52 72,28" fill="none" stroke="rgba(0, 242, 254, 0.5)" stroke-width="0.2"/>
                         </svg>
-                        <div class="star-node" style="left: 15%; top: 70%; animation-delay: 0s;" data-target="sec-about" onclick="warpToStar(this)"><div class="star-label">About Me</div></div>
-                        <div class="star-node" style="left: 28%; top: 55%; animation-delay: 0.4s;" data-target="sec-activities" onclick="warpToStar(this)"><div class="star-label label-up">Activities</div></div>
-                        <div class="star-node" style="left: 42%; top: 58%; animation-delay: 0.8s;" data-target="sec-hobbies" onclick="warpToStar(this)"><div class="star-label label-up">Hobbies</div></div>
-                        <div class="star-node" style="left: 55%; top: 50%; animation-delay: 1.2s;" data-target="sec-favorites" onclick="warpToStar(this)"><div class="star-label label-up">Favorites</div></div>
-                        <div class="star-node" style="left: 68%; top: 70%; animation-delay: 1.6s;" data-target="sec-awards" onclick="warpToStar(this)"><div class="star-label">Awards</div></div>
-                        <div class="star-node" style="left: 78%; top: 52%; animation-delay: 2.0s;" data-target="sec-mentors" onclick="warpToStar(this)"><div class="star-label nudge-right">Mentors</div></div>
-                        <div class="star-node" style="left: 72%; top: 28%; animation-delay: 2.4s;" data-target="sec-musings" onclick="warpToStar(this)"><div class="star-label label-up">Musings</div></div>
+                                                <div class="star-node" style="left: 15%; top: 70%; animation-delay: 0s;" data-target="sec-about" onclick="warpToStar(this)"><div class="star-label">About Me</div></div>
+                        <div class="star-node" style="left: 28%; top: 55%; animation-delay: 0.15s;" data-target="sec-activities" onclick="warpToStar(this)"><div class="star-label label-up">Activities</div></div>
+                        <div class="star-node" style="left: 42%; top: 58%; animation-delay: 0.3s;" data-target="sec-hobbies" onclick="warpToStar(this)"><div class="star-label label-up">Hobbies</div></div>
+                        <div class="star-node" style="left: 55%; top: 50%; animation-delay: 0.45s;" data-target="sec-favorites" onclick="warpToStar(this)"><div class="star-label label-up">Favorites</div></div>
+                        <div class="star-node" style="left: 68%; top: 70%; animation-delay: 0.6s;" data-target="sec-awards" onclick="warpToStar(this)"><div class="star-label">Awards</div></div>
+                        <div class="star-node" style="left: 78%; top: 52%; animation-delay: 0.75s;" data-target="sec-mentors" onclick="warpToStar(this)"><div class="star-label nudge-right">Mentors</div></div>
+                        <div class="star-node" style="left: 72%; top: 28%; animation-delay: 0.9s;" data-target="sec-musings" onclick="warpToStar(this)"><div class="star-label label-up">Musings</div></div>
                     </div>
                     <div id="content-view">
                         <button class="back-btn" onclick="warpBack()"><i class="ph ph-arrow-left"></i> Return to Galaxy</button>
@@ -129,9 +129,10 @@
         </main>
     </div>
 
-    <script src="scripts/config.js"></script>
+        <script src="scripts/config.js"></script>
     <script src="scripts/device-detector.js"></script>
     <script src="Contents/aboutme_content.js"></script>
+    <script src="Contents/research_content.js"></script>
     <script src="scripts/navigation.js"></script>
     <script src="scripts/mobile-nav.js"></script>
     <script src="scripts/starfield.js"></script>

@@ -32,6 +32,12 @@
     transform: translate(-50%, -50%);
     z-index: 2;
     display: flex; justify-content: center; align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.star-node:hover {
+    transform: translate(-50%, -50%) scale(1.15);
 }
 
 .star-node::before {
@@ -59,8 +65,9 @@
 .star-node::after {
     content: ''; position: absolute; top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    width: 120px; height: 120px;
+    width: 140px; height: 140px;
     border-radius: 50%; z-index: 3;
+    cursor: pointer;
 }
 
 .star-label {
@@ -73,10 +80,10 @@
     font-weight: 500;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(255, 255, 255, 0.9);
     white-space: nowrap;
     transition: all 0.3s ease;
-    pointer-events: auto;
+    pointer-events: none;
     z-index: 4;
 }
 
@@ -109,11 +116,12 @@
 #content-view {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     padding: 40px;
-    background: rgba(10, 15, 25, 0.6); backdrop-filter: blur(20px);
+    background: rgba(10, 15, 25, 0.7); backdrop-filter: blur(20px);
     opacity: 0; pointer-events: none;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.3s ease;
     display: flex; flex-direction: column;
     border-radius: 24px; border: 1px solid var(--glass-border);
+    overflow-y: auto;
 }
 
 #content-view.active { opacity: 1; pointer-events: auto; }
@@ -121,29 +129,69 @@
 .back-btn {
     align-self: flex-start;
     background: rgba(255,255,255,0.05); border: 1px solid var(--accent-cyan);
-    color: var(--accent-cyan); padding: 10px 20px; border-radius: 12px;
-    font-size: 1rem; transition: all 0.3s;
-    margin-bottom: 30px; display: flex; align-items: center; gap: 8px;
+    color: var(--accent-cyan); padding: 12px 24px; border-radius: 12px;
+    font-size: 1rem; transition: all 0.3s ease;
+    margin-bottom: 30px; display: flex; align-items: center; gap: 10px;
+    cursor: pointer;
+    font-weight: 500;
 }
 .back-btn:hover {
-    background: rgba(0, 242, 254, 0.15); color: #fff;
-    transform: translateX(-5px); box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+    background: var(--hover-glow); color: #fff;
+    transform: translateX(-5px); box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+}
+.back-btn i {
+    transition: transform 0.3s ease;
+}
+.back-btn:hover i {
+    transform: translateX(-3px);
 }
 
 .inner-content-section {
-    display: none; height: 100%; padding-right: 15px;
+    display: none; 
+    flex: 1;
+    padding-right: 15px;
     animation: cardFadeUp 0.5s ease forwards;
+    overflow-y: auto;
 }
 .inner-content-section.active { display: block; }
-.inner-content-section::-webkit-scrollbar { width: 6px; }
-.inner-content-section::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+.inner-content-section::-webkit-scrollbar { width: 8px; }
+.inner-content-section::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); border-radius: 4px; }
+.inner-content-section::-webkit-scrollbar-thumb { 
+    background: rgba(0, 242, 254, 0.3); 
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+.inner-content-section::-webkit-scrollbar-thumb:hover { 
+    background: rgba(0, 242, 254, 0.5); 
+}
 
-.content-title { font-size: 3rem; color: #fff; margin-bottom: 10px; font-family: "Cormorant Garamond", serif; font-style: italic; }
-.content-subtitle { color: var(--accent-cyan); font-size: 1.2rem; margin-bottom: 40px; letter-spacing: 1px; }
+.content-title { 
+    font-size: 3rem; 
+    color: #fff; 
+    margin-bottom: 12px; 
+    font-family: "Cormorant Garamond", serif; 
+    font-style: italic;
+    text-shadow: 0 2px 15px rgba(0, 242, 254, 0.1);
+}
+.content-subtitle { 
+    color: var(--accent-cyan); 
+    font-size: 1.2rem; 
+    margin-bottom: 40px; 
+    letter-spacing: 1.5px;
+    font-weight: 500;
+}
 
 .glass-card {
     background: var(--glass-bg); border: 1px solid var(--glass-border);
-    padding: 30px; border-radius: 20px; margin-bottom: 20px;
+    padding: 32px; border-radius: 20px; margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+    background: rgba(20, 25, 35, 0.6);
+    border-color: rgba(0, 242, 254, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
 /* =========================================
@@ -159,17 +207,160 @@
 }
 .cursor-trail {
     position: fixed; top: 0; left: 0;
-    width: 36px; height: 36px;
-    border: 1px solid rgba(0, 242, 254, 0.55);
+    width: 40px; height: 40px;
+    border: 1.5px solid rgba(0, 242, 254, 0.6);
     border-radius: 50%; pointer-events: none; z-index: 9999;
     transform: translate(-50%, -50%);
-    background: rgba(3, 5, 8, 0.92);
-    box-shadow: 0 0 18px rgba(0, 242, 254, 0.18), inset 0 0 20px rgba(0, 0, 0, 0.9);
+    background: transparent;
+    box-shadow: 0 0 20px rgba(0, 242, 254, 0.25);
     opacity: 0; transition: width 0.2s, height 0.2s, background 0.2s, border-color 0.2s, box-shadow 0.2s, opacity 0.18s ease;
 }
 .click-ripple-effect {
     position: fixed; border-radius: 50%; border: 2px solid var(--accent-cyan);
     pointer-events: none; z-index: 9998; transform: translate(-50%, -50%);
     animation: ripleAnim 1.2s cubic-bezier(0.16, 0.6, 0.3, 1) forwards;
+}
+
+/* =========================================
+    响应式优化
+    ========================================= */
+
+/* 大屏幕优化 */
+@media (min-width: 1440px) {
+    .star-node {
+        width: 42px;
+        height: 42px;
+    }
+    
+    .star-node::before {
+        width: 8px;
+        height: 8px;
+    }
+    
+    .star-label {
+        font-size: 1.05rem;
+        letter-spacing: 3.5px;
+    }
+    
+    #content-view {
+        padding: 50px;
+    }
+    
+    .content-title {
+        font-size: 3.5rem;
+    }
+    
+    .content-subtitle {
+        font-size: 1.3rem;
+    }
+    
+    .glass-card {
+        padding: 38px;
+    }
+}
+
+/* 平板优化 */
+@media (max-width: 1023px) and (min-width: 768px) {
+    .star-node {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .star-node::before {
+        width: 6px;
+        height: 6px;
+    }
+    
+    .star-label {
+        font-size: 0.9rem;
+        letter-spacing: 2.5px;
+    }
+    
+    #content-view {
+        padding: 30px;
+    }
+    
+    .content-title {
+        font-size: 2.5rem;
+    }
+    
+    .content-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .glass-card {
+        padding: 26px;
+    }
+}
+
+/* 移动端优化 */
+@media (max-width: 767px) {
+    .star-node {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .star-node::before {
+        width: 5px;
+        height: 5px;
+    }
+    
+    .star-node::after {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .star-label {
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+        top: 32px;
+    }
+    
+    .label-up {
+        bottom: 32px;
+    }
+    
+    #content-view {
+        padding: 20px;
+        border-radius: 16px;
+    }
+    
+    .back-btn {
+        padding: 10px 18px;
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+    }
+    
+    .content-title {
+        font-size: 2rem;
+        margin-bottom: 8px;
+    }
+    
+    .content-subtitle {
+        font-size: 1rem;
+        margin-bottom: 25px;
+        letter-spacing: 1px;
+    }
+    
+    .glass-card {
+        padding: 20px;
+        border-radius: 16px;
+    }
+    
+    .glass-card h3 {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+    }
+    
+    .glass-card p {
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+    
+    /* 移动端隐藏自定义光标 */
+    .custom-cursor,
+    .cursor-trail {
+        display: none !important;
+    }
 }
 

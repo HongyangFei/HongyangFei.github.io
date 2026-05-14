@@ -1,0 +1,212 @@
+/**
+ * ================================
+ * animations.css - 增强动画和加载状态
+ * ================================
+ * 作用：提供流畅的页面过渡和加载状态
+ * ================================
+ */
+
+/* =========================================
+    加载状态动画
+    ========================================= */
+
+.loading-spinner {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(0, 242, 254, 0.1);
+    border-top-color: var(--accent-cyan);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.skeleton-loader {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.03) 25%,
+        rgba(255, 255, 255, 0.08) 50%,
+        rgba(255, 255, 255, 0.03) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 12px;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* =========================================
+    页面过渡动画
+    ========================================= */
+
+.page-transition-enter {
+    opacity: 0;
+    transform: translateY(30px) scale(0.98);
+}
+
+.page-transition-enter-active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.page-transition-exit {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.page-transition-exit-active {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.98);
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+}
+
+/* =========================================
+    平滑滚动优化
+    ========================================= */
+
+.smooth-scroll {
+    scroll-behavior: smooth;
+}
+
+/* 减少动画以提升性能（用户偏好设置） */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* =========================================
+    悬停状态增强
+    ========================================= */
+
+.interactive-element {
+    position: relative;
+    overflow: hidden;
+}
+
+.interactive-element::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(0, 242, 254, 0.1);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.interactive-element:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* =========================================
+    焦点状态优化（无障碍）
+    ========================================= */
+
+.focus-visible:focus {
+    outline: 2px solid var(--accent-cyan);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+button:focus-visible,
+a:focus-visible,
+.star-node:focus-visible {
+    outline: 2px solid var(--accent-cyan);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 4px rgba(0, 242, 254, 0.2);
+}
+
+/* =========================================
+    微交互动画
+    ========================================= */
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.05);
+    }
+}
+
+.pulse-animation {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes bounce-subtle {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+.bounce-subtle {
+    animation: bounce-subtle 1s ease-in-out infinite;
+}
+
+/* =========================================
+    渐入动画（用于内容加载）
+    ========================================= */
+
+.fade-in {
+    animation: fadeIn 0.6s ease forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-delay-1 { animation-delay: 0.1s; }
+.fade-in-delay-2 { animation-delay: 0.2s; }
+.fade-in-delay-3 { animation-delay: 0.3s; }
+.fade-in-delay-4 { animation-delay: 0.4s; }
+.fade-in-delay-5 { animation-delay: 0.5s; }
+
+/* =========================================
+    性能优化提示
+    ========================================= */
+
+/* 使用 will-change 提示浏览器优化动画 */
+.will-animate {
+    will-change: transform, opacity;
+}
+
+/* 动画完成后移除 will-change */
+.animation-complete {
+    will-change: auto;
+}
+
+/* 使用 GPU 加速 */
+.gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+</content>
