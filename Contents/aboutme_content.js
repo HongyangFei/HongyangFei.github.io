@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <p>Sparsity research for efficient recommendation on edge devices.</p>
                         </a>
 
-                        <a class="project-card" href="https://github.com/HongyangFei/CS2_Trading_Bot" target="_blank">
+                        <a class="project-card" href="https://github.com/HongyangFei/CS2_Trading_BOT" target="_blank">
                             <span class="project-index">02</span>
                             <h2>CS2_Trading_Bot</h2>
                             <p>Monitor the CS market, send market change alerts, and execute automatic trading.</p>
