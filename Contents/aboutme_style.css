@@ -154,7 +154,7 @@
 
 .about-photo {
     width: 100%;
-    aspect-ratio: 4 / 5.2;
+    height: auto;
     object-fit: cover;
     border-radius: 30px;
     border: 1px solid rgba(255,255,0.1);
@@ -281,9 +281,9 @@
         font-size: 0.94rem;
     }
 
-    .about-photo {
+        .about-photo {
         max-width: 100%;
-        aspect-ratio: 3 / 4;
+        height: auto;
     }
 }
 
