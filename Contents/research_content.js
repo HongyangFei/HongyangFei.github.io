@@ -31,8 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="timeline-marker"></div>
                         <div class="timeline-content">
                             <div class="timeline-period">April 2026 - Present</div>
-                            <h3 class="timeline-title">LLM Agent Research</h3>
-                            <p class="timeline-desc">Currently investigating large language model agents, focusing on improving efficiency, automation, and scalability of agent workflows.</p>
+                            <h3 class="timeline-title">Trustworthy AI & Agentic Systems</h3>
+                            <p class="timeline-desc">My research interests center on trustworthy AI in agentic workflows, particularly large language model agents, retrieval-augmented generation, and the reliability of AI systems.</p>
                         </div>
                     </div>
                 </div>
