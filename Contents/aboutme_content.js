@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
 
                 <div class="about-photo-wrap">
-                    <img class="about-photo" src="photos/white.jpg" alt="Hongyang Fei">
+                    <img class="about-photo" src="photos/ijcai.jpg" alt="Hongyang Fei">
                 </div>
             </div>
         </div>
