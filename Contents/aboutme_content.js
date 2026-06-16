@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
 
                         <div class="intro-paragraph">
-                            <p>My current research focuses on large language model agents, with particular interests in improving the efficiency, automation, and scalability of agent workflows.</p>
+                            <p>My research interests center on trustworthy AI in agentic workflows, particularly large language model agents, retrieval-augmented generation, and the reliability of AI systems.</p>
                         </div>
 
                         <div class="intro-paragraph">
